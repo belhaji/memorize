@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="levelPane" prefHeight="700.0" prefWidth="800.0" stylesheets="@level.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.belhaji.controller.LevelOneController">
+   <children>
+      <Label fx:id="counterLabel" layoutX="25.0" layoutY="27.0" text="Counter : 00:32" textFill="WHITE">
+         <font>
+            <Font name="Apple Chancery" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="scoreLabel" layoutX="595.0" layoutY="27.0" text="Score : 0" textFill="WHITE">
+         <font>
+            <Font name="Apple Chancery" size="25.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="img1" fitHeight="150.0" fitWidth="200.0" layoutX="195.0" layoutY="162.0" onMousePressed="#onImg1" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/back.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="img2" fitHeight="150.0" fitWidth="200.0" layoutX="390.0" layoutY="162.0" onMousePressed="#onImg2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/cat.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="img3" fitHeight="150.0" fitWidth="200.0" layoutX="195.0" layoutY="341.0" onMousePressed="#onImg3" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/cat.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="img4" fitHeight="150.0" fitWidth="200.0" layoutX="390.0" layoutY="339.0" onMousePressed="#onImg4" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/cat.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

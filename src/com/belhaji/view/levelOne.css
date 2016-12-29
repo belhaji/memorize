@@ -1,0 +1,16 @@
+
+#levelPane{
+    -fx-background-color: darkcyan;
+    -fx-background-image: url("/com/belhaji/image/brain.png");
+    -fx-background-repeat:round;
+}
+
+.level{
+    -fx-background-color: #006464;
+    -fx-border-radius: 30px;
+}
+
+.level:pressed{
+    -fx-background-color: #007f7f;
+    -fx-border-radius: 30px;
+}
