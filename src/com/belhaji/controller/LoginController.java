@@ -6,11 +6,12 @@ import com.belhaji.screen.ControlledScreen;
 import com.belhaji.screen.ScreensController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.Properties;
-import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 /**
@@ -33,19 +34,26 @@ public class LoginController implements Initializable, ControlledScreen {
     }
 
     @FXML
-    public void onLogin(){
+    public void onLogin() {
         String email = this.email.getText();
         String pass = this.password.getText();
-        Player player = Player.getByEmail(email);
-        if (player == null || player.getPassword().compareTo(pass) != 0){
-            Alert alert = new Alert(Alert.AlertType.ERROR,"Email or password incorrect", ButtonType.OK);
-            alert.show();
-        }else{
-            App.currentPlayer = player;
-            screensController.loadScreen(LevelController.SCREEN_NAME,LevelController.SCREEN_FILE);
-            screensController.setScreen(LevelController.SCREEN_NAME);
+        if (email.equals(App.ADMIN_NAME) && pass.equals(App.ADMIN_PASSWORD)) {
+            screensController.loadScreen(AdminController.SCREEN_NAME, AdminController.SCREEN_FILE);
+            screensController.setScreen(AdminController.SCREEN_NAME);
             screensController.unloadScreen(LoginController.SCREEN_NAME);
+        }else{
+            Player player = Player.getByEmail(email);
+            if (player == null || player.getPassword().compareTo(pass) != 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Email or password incorrect", ButtonType.OK);
+                alert.show();
+            } else {
+                App.currentPlayer = player;
+                screensController.loadScreen(LevelController.SCREEN_NAME, LevelController.SCREEN_FILE);
+                screensController.setScreen(LevelController.SCREEN_NAME);
+                screensController.unloadScreen(LoginController.SCREEN_NAME);
+            }
         }
+
 
     }
 

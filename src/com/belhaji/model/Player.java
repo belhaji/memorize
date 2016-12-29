@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static sun.audio.AudioPlayer.player;
-
 /**
  * Created by adil on 11/17/16.
  */
@@ -22,11 +20,10 @@ public class Player {
     private int score;
 
     public Player(String name, String email, String password) {
+        super();
         this.name = name;
         this.email = email;
         this.password = password;
-        this.level = 1;
-        this.score = 0;
     }
 
     public Player() {
@@ -119,7 +116,7 @@ public class Player {
 
     public boolean save() {
         String insertSql = "INSERT INTO player (name, email, password, level, score) VALUES (?, ?, ?, ?, ?)";
-        String updateSql = "UPDATE player SET name = ?, email = ?, password = ?, level = ?, score = ?";
+        String updateSql = "UPDATE player SET name = ?, email = ?, password = ?, level = ?, score = ? WHERE id = ?";
         boolean ret = false;
         try {
             PreparedStatement statement;
@@ -127,20 +124,22 @@ public class Player {
                 statement = DBHelper.getConnection().prepareStatement(insertSql);
             else
                 statement = DBHelper.getConnection().prepareStatement(updateSql);
-            statement.setString(1,this.name);
-            statement.setString(2,this.email);
-            statement.setString(3,this.password);
-            statement.setInt(4,this.level);
-            statement.setInt(5,this.score);
+            statement.setString(1, this.name);
+            statement.setString(2, this.email);
+            statement.setString(3, this.password);
+            statement.setInt(4, this.level);
+            statement.setInt(5, this.score);
+            if (this.id != 0)
+                statement.setInt(6, this.id);
             if (statement.executeUpdate() == 1) ret = true;
-            this.id = statement.getGeneratedKeys().getInt(1);
+            if (this.id == 0) this.id = statement.getGeneratedKeys().getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return ret;
     }
 
-    public static boolean delete(int id){
+    public static boolean delete(int id) {
         try {
             PreparedStatement statement = DBHelper.getConnection().prepareStatement("DELETE FROM player WHERE id = ?");
             statement.setInt(1, id);
@@ -151,7 +150,7 @@ public class Player {
         return false;
     }
 
-    public static Player getByEmail(String email){
+    public static Player getByEmail(String email) {
         Player player = null;
         try {
             PreparedStatement statement = DBHelper.getConnection().prepareStatement("SELECT * FROM player WHERE email = ?");
